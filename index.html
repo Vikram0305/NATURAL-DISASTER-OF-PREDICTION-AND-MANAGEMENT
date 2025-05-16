@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Earthquake Risk Predictor</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 2em;
+      background: #f2f2f2;
+    }
+    .container {
+      background: #fff;
+      padding: 1.5em;
+      border-radius: 10px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+    }
+    .result {
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    button {
+      margin-top: 1em;
+      padding: 0.7em 1em;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <h2>Earthquake Risk Predictor</h2>
+  <p>Click the button to simulate a seismic reading:</p>
+  <button onclick="predictEarthquake()">Predict Risk</button>
+
+  <div class="result" id="result"></div>
+</div>
+
+<script>
+  async function predictEarthquake() {
+    // Simulating request to backend
+    const response = await fetch('/predict'); // assumes Flask endpoint
+    const data = await response.json();
+
+    const resultDiv = document.getElementById('result');
+    resultDiv.innerHTML = `
+      Magnitude: ${data.magnitude.toFixed(2)}<br/>
+      Risk Level: <strong style="color: ${data.risk ? 'red' : 'green'};">
+        ${data.risk ? 'High Risk ⚠️' : 'Low Risk ✅'}
+      </strong>
+    `;
+  }
+</script>
+
+</body>
+</html>
